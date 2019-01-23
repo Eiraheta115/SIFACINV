@@ -325,3 +325,94 @@ def getVentas(request):
     ventas = Libroventascf.objects.filter(fecha__range=(f1, f2))
     context = {'ventas':ventas}
     return render(request, template, context)
+
+
+def mod_productos(request, id):
+    template = "../templates/Cproducts.html"
+
+    categorias = list()
+    cates = Categorias.objects.all()
+    for c in cates:
+        categorias.append(c)
+
+    bodegas = list()
+    cellars = Bodegas.objects.all()
+    for b in cellars:
+        bodegas.append(b)
+
+    existProductos = Productos.objects.filter(idproducto=id).exist()
+
+    if existProductos:
+        if request.method == 'POST':
+            prod = Productos.objects.get(idproducto=id)
+            prod.nombre = request.POST.get('nombre')
+            prod.marca = request.POST.get('marca')
+            prod.descripcion = request.POST.get('descripcion')
+            prod.codigo = request.POST.get('codigo')
+            prod.bodega = Bodegas.objects.get(idbodega=request.POST.get('bodega'))
+            prod.categoria = Categorias.objects.get(idcategoria=request.POST.get('categoria'))
+            prod.existenciamax = request.POST.get('maxima')
+            prod.existenciamin = request.POST.get('minima')
+            prod.existenciaactual = request.POST.get('actual')
+
+            #product = Productos(codigoprod=codigo, nombre=nombre, descripcion=descripcion, marca=marca,
+            #                    existenciamax=maxima, existenciamin=minima, existenciaactual=actual,
+            #                    idcategoria=categoria, idbodega=bodega)
+            prod.save()
+
+            alerta = 'La Producto se modifico con exito'
+
+        context = {
+            'categorias': categorias,
+            'bodegas': bodegas,
+            'alerta': alerta,
+        }
+        return render(request, template, context)
+    else:
+        return HttpResponse("No existe el producto")
+
+def mod_bodegas(request, id):
+    template = "../templates/CBodega.html"
+
+    existBodegas = Bodegas.objects.filter(idbodega=id).exist()
+
+    if existBodegas:
+        if request.method == 'POST':
+            bod = Bodegas.objects.get(idbodega=id)
+            bod.nombre = request.POST.get('nombre')
+            bod.descripcion = request.POST.get('descripcion')
+            #bodega = Bodegas(nombre=nombre, descripcion=descripcion)
+            bod.save()
+
+            alerta = 'La Bodega se modifico con exito'
+
+        context = {
+            'alerta': alerta,
+        }
+        return render(request, template, context)
+    else:
+        return HttpResponse("No existe el bodega")
+
+def mod_categorias(request, id):
+    template = "../templates/Ccategoria.html"
+
+    existCategorias = Categorias.objects.filter(idcategoria=id).exist()
+
+    if existCategorias:
+        if request.method == 'POST':
+            cat = Categorias.objects.get(idcategoria=id)
+            cat.nombre = request.POST.get('nombre')
+            cat.codigo = request.POST.get('codigo')
+            cat.descripcion = request.POST.get('descripcion')
+            #categoria = Categorias(nombre=nombre, codigo=codigo, descripcion=descripcion)
+            cat.save()
+
+            alerta = 'La Categoria se modifico con exito'
+
+        context = {
+            'alerta': alerta,
+        }
+        return render(request, template, context)
+    else:
+        return HttpResponse("No existe el bodega")
+

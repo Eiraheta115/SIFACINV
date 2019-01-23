@@ -34,4 +34,7 @@ urlpatterns = [
     path('proveedores_edit/proveedores_list', proveedores_list, name='proveedores_list'),
     path('proveedores_delete/proveedores_list.html', proveedores_list, name='proveedores_list'),
     path('proveedores_list.html', proveedores_list, name='proveedores_list'),
+    path('mod_producto/<id>/', mod_productos, name='mod_producto'),
+    path('mod_bodega/<id>/', mod_bodegas, name='mod_bodega'),
+    path('mod_categoria/<id>/', mod_categorias, name="mod_categoria")
 ]
