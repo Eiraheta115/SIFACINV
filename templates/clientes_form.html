@@ -1,11 +1,12 @@
-{% extends "index.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
+{% include 'material/includes/material_css.html' %}
+<script src="{% static 'material/js/jquery.js' %}"></script>
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
 
-{% block title %}
-      <title>Nuevo cliente</title>
-{% endblock title %}
-
-{% block contenido %}
+{% block content %}
 <h1>Nuevo cliente</h1>
     <div class="container">
       <form method="post">{% csrf_token %}
@@ -15,4 +16,4 @@
       </form>
     </div>
 
-{% endblock %}
+{% endblock content%}

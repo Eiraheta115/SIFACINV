@@ -1,14 +1,16 @@
-{% extends "index.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
-{% block title %}
-      <title>Eliminar</title>
-{% endblock title %}
+{% include 'material/includes/material_css.html' %}
+<script src="{% static 'material/js/jquery.js' %}"></script>
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
 
-{% block contenido %}
+{% block content %}
     <div class="container">
       <form method="post">{% csrf_token %}
         ¿Está seguro de querer eliminar a "{{ object.nombre }}" ?
         <input class="btn btn-primary" type="submit" value="Sí" />
       </form>
     </div>
-{% endblock %}
+{% endblock content%}

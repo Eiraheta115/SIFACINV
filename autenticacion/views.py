@@ -40,7 +40,7 @@ def login(request):
             if next:
                 return redirect(next)
             else:
-                return redirect('/usuarios')
+                return redirect('/bienvenido')
         else:
             mensaje = "Usuario o Contraseña Incorrecto"
             try:
@@ -168,6 +168,10 @@ def usuarios(request):
         pass
     """
     return render(request, 'autenticacion/usuarios.html', {'user_list': user_list, 'mensaje': mensaje, })
+
+@login_required
+def bienvenido(request):
+    return render(request, 'autenticacion/welcome.html')    
 
 
 def bloquear_usuario(request, pk):

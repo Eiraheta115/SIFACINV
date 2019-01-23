@@ -11,6 +11,7 @@ urlpatterns = [
     # Inician urls para Usuario
 
     url(r'^usuarios/$', usuarios, name='usuarios'),
+    url(r'^bienvenido/$', bienvenido, name='bienvenido'),
     url(r'^actualizar_usuario/(?P<id>\d+)$', recuperarContra, name='actualizar_usuario'),
     url(r'^bloquear_usuario/(?P<pk>\d+)$', bloquear_usuario, name='bloquear_usuario'),
     url(r'^agregar_usuarios/', registroUsuario, name='agregar_usuarios'),

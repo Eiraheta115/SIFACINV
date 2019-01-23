@@ -1,8 +1,12 @@
-{% extends "index.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
-{% block contenido %}
+{% include 'material/includes/material_css.html' %}
+<script src="{% static 'material/js/jquery.js' %}"></script>
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
 
-
+{% block content %}
     <h1>Nueva Bodega</h1>
     <hr class="my-4">
 
@@ -25,4 +29,4 @@
     </form>
 
 
-{% endblock contenido %}
+{% endblock content %}

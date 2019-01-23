@@ -1,4 +1,5 @@
 {% load static %}
+{{ form.media }}            {# Adds date-picker required JS and CSS #}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -46,6 +47,10 @@
             $("#imagen").html(img);
         });
     </script>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="{% static 'bower_components/Ionicons/css/ionicons.min.css' %}">
 
 </head>
 <body>
@@ -76,15 +81,14 @@
             {% for group in groups %}
                 {% if group == 'Estrategico'%}
                     <div class="divider"></div>
-                    <div class="sidenav-item">
-                        <a href="#"><p class="center-align">Informe de Planes de Acciones Correctivas y Preventivas</p></a>
-                    </div>
+                    <div class="sidenav-item"><a href="{% url 'reporte_ventas' %}"><center>Libro de ventas consumidor final</center></a></div>
 
                 {% elif group == 'Tactico'%}
                     <div class="divider"></div>
-                    <div class="sidenav-item">
-                        <a href="#"><center>Informe de Grado de Cumplimiento de Buenas Prácticas</center></a>
-                    </div>
+                    <div class="sidenav-item"><a href="{% url 'list_categoria' %}"><center>Categorias</center></a></div>
+                    <div class="sidenav-item"><a href="{% url 'list_bodega' %}"><center>Bodegas</center></a></div>
+                    <div class="sidenav-item"><a href="{% url 'list_producto' %}"><center>Productos</center></a></div>
+                    <div class="sidenav-item"><a href="{% url 'proveedores_list' %}"><center>Proveedores</center></a></div>
                 {%elif group == 'Administrador'%}
                     </div><div class="divider"></div></li>
                     <div class="sidenav-item"><a href="{% url 'agregar_usuarios' %}"><center>Agregar Usuario</center></a></div>
@@ -92,28 +96,11 @@
                     
                    
                 {%elif group == 'Operativo'%}
-
-                    <ul class="collapsible" data-collapsible="accordion">
-
                     <li><div class="divider"></div></li>
-                <li>
-                    <div class="collapsible-header">Captura de Datos</div>
-                    <div class="collapsible-body"><span><a href="{% url 'registrar_empleado' %}"><center>Crear Expediente</center></a></span></div>
-                    <div class="collapsible-body"><span><a href="{% url 'consultarEmpleados' %}"><center>Consultar Expedientes</center></a></span></div>
-                    <div class="collapsible-body"><span><a href="{% url 'agregar_buena_practica' %}"><center>Agregar Buena Práctica</center></a></span></div>
-                    <div class="collapsible-body"><span><a href="{% url 'consultarBuenasPracticas' %}"><center>Consultar Buenas Prácticas</center></a></span></div>
-                    <div class="collapsible-body"><span><a href="{% url 'registro_inspeccion' %}"><center>Realizar Inspección</center></a></span></div>
-                    <div class="collapsible-body"><span><a href="{% url 'consultarInspecciones' %}"><center>Consultar Inspecciones</center></a></span></div>
-
-                </li>
-                    <li><div class="divider"></div></li>
-                <li>
-                    <div class="collapsible-header">Emisión de Reportes</div>
-                    <div class="collapsible-body"><span><a href="{% url 'reporteExpedientes' %}"><center>Reporte de Expedientes</center></a></span></div>
-                    <div class="collapsible-body"><span><a href="{% url 'reporteInspecciones' %}"><center>Reporte de Inspecciones</center></a></span></div>
-                </li>
-                    </ul>
-
+                    <div class="sidenav-item"><a href="{% url 'clientes_list' %}"><center>Clientes</center></a></div>
+                    <div class="sidenav-item"><a href="{% url 'busqueda' %}"><center>Busqueda</center></a></div>
+                    <div class="sidenav-item"><a href="{% url 'nueva_venta' %}"><center>Ventas</center></a></div>
+                    <div class="sidenav-item"><a href="{% url 'nueva_compra' %}"><center>Compras</center></a></div>
                 {%endif%}
              {% endfor %}
         {% endfor %}
@@ -184,5 +171,6 @@
 </script>
 {% block js %}
 {% endblock %}
+
 </body>
 </html>

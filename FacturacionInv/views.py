@@ -318,8 +318,9 @@ def reporte_ventas(request):
 def getVentas(request):
     template = "../templates/reporte_ventas.html"
     if request.method == 'POST':
-        f1 = DateRangeForm(request.POST.get("start_date"))
-        f2 = DateRangeForm(request.POST.get("end_date"))
+		
+        f1 = datetime.datetime.strptime((request.POST.get("start_date")), '%b %d, %Y')
+        f2 = datetime.datetime.strptime((request.POST.get("end_date")), '%b %d, %Y')
 
     ventas = Libroventascf.objects.filter(fecha__range=(f1, f2))
     context = {'ventas':ventas}

@@ -1,14 +1,19 @@
-{% extends "index.html" %}
-{{ form.media }}
-{% block contenido %}
+{% extends 'base.html' %}
+{% load static %}
 
+{% include 'material/includes/material_css.html' %}
+<script src="{% static 'material/js/jquery.js' %}"></script>
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+
+{% block content %}
 <br>
 <h1>Listado de ventas a consumidor final</h1>
 <br>
 <form action="{% url "getVentas" %}" method="POST">
   {% csrf_token %}
   <fieldset>
-    <div class="form-group row">
+    <div class="form-group">
       <label for="fecha_inicio" class="col-sm-2 col-form-label">Fecha de inicio:</label> {{form.start_date}}
       <label for="fecha_fin" class="col-sm-2 col-form-label">Fecha fin:</label> {{ form.end_date }}
       <br>
@@ -22,8 +27,9 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Fecha</th>
-      <th scope="col">Exenta</th>
       <th scope="col">Afecta</th>
+      <th scope="col">IVA</th>
+      <th scope="col">Exenta</th>
       <th scope="col">Exportación</th>
       <th scope="col">ID factura</th>
       <th scope="col">Total</th>
@@ -35,10 +41,11 @@
     <tr>
       <td>{{v.idlibvencf}}</td>
       <td>{{v.fecha}}</td>
-      <td>{{v.exenta}}</td>
       <td>{{v.afecta}}</td>
+      <td>{{v.iva}}</td>
+      <td>{{v.exenta}}</td>
       <td>{{v.exportacion}}</td>
-      <td>{{v.facturas_idfactura}}</td>
+      <td>{{v.facturas_idfactura.codigo}}</td>
       <td>{{v.total}}</td>
     </tr>
     {% endfor %}
@@ -53,4 +60,4 @@
 <label for="totalExenta" class="col-sm-2 col-form-label">Total exenta:</label> {{totalExenta}}
 <label for="totalExportacion" class="col-sm-2 col-form-label">Total Exportación:</label> {{totalExportacion}}
 <label for="totalVentas" class="col-sm-2 col-form-label">Total "Ventas totales":</label> {{totalVentas}}
-{% endblock contenido %}
+{% endblock content %}

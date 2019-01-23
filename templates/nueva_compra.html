@@ -1,7 +1,12 @@
-{% extends "index.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
-{% block contenido %}
+{% include 'material/includes/material_css.html' %}
+<script src="{% static 'material/js/jquery.js' %}"></script>
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
 
+{% block content %}
 <br>
 <h1>Orden de Compra</h1>
 <br>
@@ -34,7 +39,7 @@
         <label for="marca">Marca del producto: </label>
         <input type="text" class="form-control" id="marca" placeholder="Marca">
         <label for="fecha">Fecha: </label>
-        <input type="text" class="form-control" id="fecha" placeholder="Fecha">
+        <input type="date" class="form-control" id="fecha" placeholder="Fecha">
         <br>
         <button type="submit" class="btn btn-primary">Agregar Producto</button>
       </div>
@@ -111,4 +116,4 @@
 
 </form>
 
-{% endblock contenido %}
+{% endblock content %}
