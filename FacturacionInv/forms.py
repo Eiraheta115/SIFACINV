@@ -24,5 +24,5 @@ class newBodegaForm(forms.ModelForm):
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
 class DateRangeForm(forms.Form):
-    start_date = forms.DateField(widget=DateInput())
-    end_date = forms.DateField(widget=DateInput())
+    start_date = forms.DateField(input_formats='%Y-%m-%d', widget=DateInput(format='%Y-%m-%d'))
+    end_date = forms.DateField(input_formats='%Y-%m-%d', widget=DateInput(format='%Y-%m-%d'))

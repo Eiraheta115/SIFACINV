@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% include 'material/includes/material_css.html' %}
+<script src="{% static 'material/js/jquery.js' %}"></script>
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+
+{% block content %}
+
+<br>
+<h1>Listado de facturas</h1>
+<br>
+<form action="{% url "getFacturas" %}" method="POST">
+  {% csrf_token %}
+  <fieldset>
+    <div class="form-group row">
+      <label for="fecha_inicio" class="col-sm-2 col-form-label">Fecha de inicio:</label> {{form.start_date}}
+      <label for="fecha_fin" class="col-sm-2 col-form-label">Fecha fin:</label> {{ form.end_date }}
+      <br>
+      <button type="submit" class="btn btn-primary">Mostrar facturas</button>
+    </div>
+  </fieldset>
+</form>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Código</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Total</th>
+      <th scope="col">Exenta</th>
+      <th scope="col">Vencimiento</th>
+      <th scope="col">Descuento</th>
+      <th scope="col">Anulado</th>
+      <th scope="col">Impreso</th>
+      <th scope="col">ID Cliente</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if facturas %}
+    {% for f in facturas %}
+    <tr>
+      <td>{{f.idfactura}}</td>
+      <td>{{f.codigo}}</td>
+      <td>{{f.fecha}}</td>
+      <td>{{f.total}}</td>
+      <td>{{f.exenta}}</td>
+      <td>{{f.vencimiento}}</td>
+      <td>{{f.descuento}}</td>
+      <td>{{f.anulado}}</td>
+      <td>{{f.impreso}}</td>
+      <td>{{f.idcliente}}</td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>Aún no hay facturas.</h1>
+    {% endif %}
+  </tbody>
+</table>
+
+<br> <br>
+
+<label for="totalExenta" class="col-sm-2 col-form-label">Total exenta:</label> {{totalExenta}}
+<label for="totalVentas" class="col-sm-2 col-form-label">Total "Ventas totales":</label> {{totalVentas}}
+{% endblock content %}

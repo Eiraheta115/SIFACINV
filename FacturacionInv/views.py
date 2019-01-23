@@ -286,7 +286,7 @@ def proveedores_delete(request, pk, template_name='../templates/proveedores_dele
     proveedores = get_object_or_404(Proveedores, pk=pk)
     if request.method=='POST':
         proveedores.delete()
-        return redirect('templates:proveedores_list')
+        return redirect('proveedores_list')
     return render(request, template_name, {'object': proveedores})
 
 class BodegasList(ListView):
@@ -324,4 +324,28 @@ def getVentas(request):
 
     ventas = Libroventascf.objects.filter(fecha__range=(f1, f2))
     context = {'ventas':ventas}
+    return render(request, template, context)
+
+def reporte_facturas(request):
+    template = "../templates/reporte_facturas.html"
+    fecha1 = DateRangeForm()
+    fecha2 =DateRangeForm()
+    context = {
+    'form': fecha1,
+    'form': fecha2,
+    }
+    return render(request, template, context)
+
+def getFacturas(request):
+    template = "../templates/reporte_facturas.html"
+    fecha1 = DateRangeForm()
+    fecha2 =DateRangeForm()
+    if request.method == 'POST':
+        f1 = datetime.datetime.strptime((request.POST.get("start_date")), '%b %d, %Y')
+        f2 = datetime.datetime.strptime((request.POST.get("end_date")), '%b %d, %Y')
+    facturas = Facturas.objects.filter(fecha__range=(f1, f2))
+
+    context = {'facturas':facturas,
+    'form': fecha1,
+    'form': fecha2,}
     return render(request, template, context)

@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^cuenta/$', cuenta, name='cuenta'),
 
     # Inician urls para Usuario
-
+    url(r'^/', redir, name='redir'),
     url(r'^usuarios/$', usuarios, name='usuarios'),
     url(r'^bienvenido/$', bienvenido, name='bienvenido'),
     url(r'^actualizar_usuario/(?P<id>\d+)$', recuperarContra, name='actualizar_usuario'),

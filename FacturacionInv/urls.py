@@ -34,4 +34,6 @@ urlpatterns = [
     path('proveedores_edit/proveedores_list', proveedores_list, name='proveedores_list'),
     path('proveedores_delete/proveedores_list.html', proveedores_list, name='proveedores_list'),
     path('proveedores_list.html', proveedores_list, name='proveedores_list'),
+    path('reporte_facturas', reporte_facturas, name='reporte_facturas'),
+    url(r'^getFacturas$', getFacturas, name='getFacturas'),
 ]

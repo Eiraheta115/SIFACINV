@@ -173,6 +173,9 @@ def usuarios(request):
 def bienvenido(request):
     return render(request, 'autenticacion/welcome.html')    
 
+@login_required
+def redir(request):
+    return redirect('/redir')  
 
 def bloquear_usuario(request, pk):
     user = User.objects.get(pk=pk)
