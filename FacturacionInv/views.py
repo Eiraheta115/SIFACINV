@@ -44,7 +44,7 @@ def nueva_venta(request):
 		productos = Productos.objects.filter(nombre__icontains=search_term)
 
 	if 'search_client' in request.GET:
-		search_term = request.GET['search_client']
+		search_term_1 = request.GET['search_client']
 		cliente = Clientes.objects.filter(nombre__icontains=search_term_1)
 
 	if request.method == 'POST':
