@@ -8,111 +8,149 @@
 
 {% block content %}
 <br>
-<h1>Orden de Compra</h1>
+<h1>Nueva Compra</h1>
 <br>
-<form>
+
+    <!--BUSCAR EL PROVEEDOR-->
+    <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="text" placeholder="Buscar" name="search_proveedor">
+    <button class="btn btn-primary" type="submit">Buscar Proveedor</button>
+    </form>
+  <br>
+  <table class="table table-hover" style="margin-top: 30px">
+    <thead>
+      <tr>
+        <th scope="col">Cod</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">DUI</th>
+        <th scope="col">Accion</th>   
+      </tr>
+    </thead>
+    <tbody>
+      {% if proveedor %}
+      {% for c in proveedor %}
+      <tr class="table-active">
+        <th scope="row">{{ c.codigoprov }}</th>
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.dui }}</td>
+        <td><button class="btn btn-primary" type="submit">Agregar Proveedor</button></td>
+      </tr>
+      {% endfor %}
+      {% else %}
+      <h4>No hay registros</h4>
+      {% endif %}
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <br>
+  <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Buscar" name="search">
+      <button class="btn btn-primary" type="submit">Buscar Producto</button>
+    </form>
+  <br>
+  
+<br>
+<br>
+<form method="POST" action="#">
+  {% csrf_token %}
   <fieldset class="row">
-    <br>
-    <legend>Ingrese los datos:</legend>
   <fieldset>
-    <div class="form-group row" >
-      <div class="col-sm-5">
-        <label for="codigoprod">Código del producto: </label>
-        <input type="text" class="form-control" id="codigoprod" placeholder="Código">
-      </div>
-      <div class="col-sm-4">
-        <br>
-        <button type="submit" class="btn btn-primary">Buscar Producto</button>
-        <br>
-      </div>
-    </div>
+    
+    <table class="table table-hover" style="margin-top: 30px">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Cod</th>
+        <th scope="col">Descrpción</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Precio Unitario</th>
+        <th scope="col">Accion</th>   
+      </tr>
+      </thead>
+      <tbody>
+      {% if productos %}
+      {% for p in productos %}
+      <tr class="table-active">
+        <th scope="row">{{ p.nombre }}</th>
+        <td>{{ p.codigoprod }}</td>
+        <td>{{ p.descripcion }}</td>
+        <td><input type="number" class="form-control" id="cantidad" placeholder="0"></td>
+        <td><input type="number" class="form-control" id="precio_unit" placeholder="0.00"></td>
+        <td><button class="btn btn-primary" type="submit" class="principal" id="add_row">Agregar Producto</button></td>
+        <!--<input type="button" value="Agregar" class="principal" id="add_row"/> -->
+        <td>
+      </tr>
+      {% endfor %}
+      {% else %}
+      <h4>No hay registros</h4>
+      {% endif %}
+      </tbody>
+      </table>
+
     <div class="form-group row">
       <div class="col-sm-5">
-        <label for="codigoprod">Código del producto: </label>
-        <input type="text" class="form-control" id="codigoprod" placeholder="Código">
         <label for="descripcion">Descripción: </label>
-        <input type="text" class="form-control" id="descripcion" placeholder="Descripción">
+        <input type="text" class="form-control" id="descripcionproducto" placeholder="Descripción">
         <label for="cantidad">Cantidad: </label>
         <input type="text" class="form-control" id="cantidad" placeholder="0">
       </div>
       <div class="col-sm-4">
         <label for="marca">Marca del producto: </label>
-        <input type="text" class="form-control" id="marca" placeholder="Marca">
+        <input type="text" class="form-control" id="marcaproducto" placeholder="Marca">
         <label for="fecha">Fecha: </label>
-        <input type="date" class="form-control" id="fecha" placeholder="Fecha">
-        <br>
-        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+        <input type="text" class="form-control" name="fecha" id="fecha" placeholder="Fecha">
       </div>
     </div>
-  </fieldset>
-
-  <table class="table table-hover" style="margin-top: 30px">
-    <thead>
-      <tr>
-        <th scope="col">Cod</th>
-        <th scope="col">Descrpción</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Precio Unitario</th>
-        <th scope="col">Ventas Exentas</th>
-        <th scope="col">Ventas Grabadas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="table-active">
-        <th scope="row">-</th>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-    </tbody>
-  </table> 
-</fieldset>
-
-<fieldset>
-  <h4>Proveedor</h4>
-  <div class="form-group row" >
-      <div class="col-sm-5">
-        <label for="codigoprov">Cod Proveedor: </label>
-        <input type="text" class="form-control" id="codigoprov" placeholder="Proveedor">
-      </div>
-      <div class="col-sm-4">
-        <br>
-        <button type="submit" class="btn btn-primary">Buscar Proveedor</button>
-        <br>
-      </div>
-    </div>
+    <br>
+    <br>
+        <div class="table-wrapper">
+          <table id="tabla_factura" class="table table-hover">
+            <thead>
+            <tr>
+              <th>Codigo</th>
+              <th>Cantidad</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Subtotal</th>
+              <td>Acción</td>
+            </tr>
+            </thead>
+            <tbody id="content_table">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="4"></td>
+              <td id="total_subtotales">0.00</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+  </fieldset> 
 </fieldset>
 
 <fieldset>
   <div class="form-group row" style="margin-top: 30px">
       <div class="col-sm-5">
         <label for="total">Total: </label>
-        <input type="text" class="form-control" id="total" placeholder="0.00">
+        <input type="number" class="form-control" id="total" placeholder="0.00">
       </div>
       <div class="col-sm-4">
         <label for="iva">IVA: </label>
-        <input type="text" class="form-control" id="iva" placeholder="0.00">
+        <input type="number" class="form-control" id="iva" placeholder="0.00">
         <br>
       </div>
     </div>
 </fieldset>
-
-<fieldset>
-  <div class="form-group row" style="margin-top: 30px">
-      <div class="col-sm-5">
-        <label for="total">TOTAL: </label>
-        <input type="text" class="form-control" id="total" placeholder="0.00">
-      </div>
-      <div class="col-sm-4">
-        <br>
-        <button type="submit" class="btn btn-primary">Procesar Compra</button>
-        <br>
-      </div>
-    </div>
-</fieldset>
-
+<button class="btn btn-primary" type="submit">Procesar Compra</button>
 
 </form>
 

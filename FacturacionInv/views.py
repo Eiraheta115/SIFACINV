@@ -160,7 +160,42 @@ def prueba(request):
 	return render(request, template)
 
 def nueva_compra(request):
-	return render(request, "../templates/nueva_compra.html")
+
+    template = "../templates/nueva_compra.html"
+
+    search_term = ''
+    search_term_1 = ''
+    productos = ''
+    proveedor = ''
+
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        productos = Productos.objects.filter(nombre__icontains=search_term)
+
+    if 'search_proveedor' in request.GET:
+        search_term_1 = request.GET['search_proveedor']
+        proveedor = Proveedores.objects.filter(nombre__icontains=search_proveedor)
+
+    if request.method == 'POST':
+        fecha = request.POST.get("fecha")
+        codigo = request.POST.get("codigo")
+        concepto = request.POST.get("concepto")
+        vencimiento = request.POST.get("vencimiento")
+        total = request.POST.get("total")
+        exenta = request.POST.get("exenta")
+        descuento = request.POST.get("descuento")
+        anulado = request.POST.get("anulado")
+        impreso = request.POST.get("impreso")
+        cantidad = request.POST.get("cantidad")
+        precio = request.POST.get("precio")
+        descripcion = request.POST.get("descripcionproducto")
+
+    context = {
+        'search_term':search_term, 'productos':productos, 'proveedor': proveedor,
+        'search_term_1':search_term_1,
+    }
+
+    return render(request, template, context)
 
 def modificar_factura(request):
 	return render(request, "../templates/nueva_venta.html")
