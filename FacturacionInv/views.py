@@ -174,7 +174,7 @@ def nueva_compra(request):
 
     if 'search_proveedor' in request.GET:
         search_term_1 = request.GET['search_proveedor']
-        proveedor = Proveedores.objects.filter(nombre__icontains=search_proveedor)
+        proveedor = Proveedores.objects.filter(nombre__icontains=search_term_1)
 
     if request.method == 'POST':
         fecha = request.POST.get("fecha")
